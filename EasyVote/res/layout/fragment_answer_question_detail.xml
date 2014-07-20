@@ -1,0 +1,22 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll_answer_question_detail"
+    style="?android:attr/textAppearanceLarge"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:textIsSelectable="true"
+    tools:context="com.llanox.mobile.easyvote.AnswerQuestionDetailFragment" >
+
+    <TextView
+        android:id="@+id/question_description"
+        style="?android:attr/textAppearanceLarge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"     
+        android:textIsSelectable="true"
+        android:textSize="12sp"
+         />
+
+  
+
+</LinearLayout>
