@@ -1,5 +1,7 @@
 package com.llanox.mobile.easyvote;
 
+import java.util.List;
+
 import android.app.Fragment;
 import android.content.Context;
 import android.graphics.Color;
@@ -9,7 +11,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.backendless.Backendless;
+import com.backendless.BackendlessCollection;
+import com.backendless.async.callback.AsyncCallback;
+import com.backendless.exceptions.BackendlessFault;
+import com.backendless.persistence.BackendlessDataQuery;
 import com.jjoe64.graphview.BarGraphView;
 import com.jjoe64.graphview.CustomLabelFormatter;
 import com.jjoe64.graphview.GraphView;
@@ -19,7 +27,11 @@ import com.jjoe64.graphview.GraphViewSeries;
 import com.jjoe64.graphview.GraphViewSeries.GraphViewSeriesStyle;
 import com.jjoe64.graphview.LineGraphView;
 import com.jjoe64.graphview.ValueDependentColor;
+import com.llanox.mobile.easyvote.data.DataLayerManager;
+import com.llanox.mobile.easyvote.data.QuestionData;
 import com.llanox.mobile.easyvote.dummy.DummyContent;
+import com.llanox.mobile.easyvote.model.AnswerQuestion;
+import com.llanox.mobile.easyvote.model.Question;
 
 /**
  * A fragment representing a single Question detail screen. This fragment is
@@ -33,10 +45,8 @@ public class QuestionDetailFragment extends Fragment {
 	 */
 	public static final String ARG_ITEM_ID = "item_id";
 
-	/**
-	 * The dummy content this fragment is presenting.
-	 */
-	private DummyContent.DummyItem mItem;
+	private View mRootView;
+	private Question mItem;
 
 	/**
 	 * Mandatory empty constructor for the fragment manager to instantiate the
@@ -53,32 +63,62 @@ public class QuestionDetailFragment extends Fragment {
 			// Load the dummy content specified by the fragment
 			// arguments. In a real-world scenario, use a Loader
 			// to load content from a content provider.
-			mItem = DummyContent.ITEM_MAP.get(getArguments().getString(
-					ARG_ITEM_ID));
+			String idItem = getArguments().getString(	ARG_ITEM_ID);
+		
 		}
 	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View rootView = inflater.inflate(R.layout.fragment_question_detail,
+		mRootView = inflater.inflate(R.layout.fragment_question_detail,
 				container, false);
-
-		// Show the dummy content as text in a TextView.
-		if (mItem != null) {
-			((TextView) rootView.findViewById(R.id.question_detail)).setText(mItem.content);
+		
+		
+		String idItem = getArguments().getString(ARG_ITEM_ID);
+		QuestionData data = (QuestionData) DataLayerManager.getInstance(this.getActivity()).getDataSession(QuestionData.class);
+		mItem = data.findQuestionById(idItem);
+		
+		if (mItem != null) {			
+			
+			((TextView) mRootView.findViewById(R.id.question_detail)).setText(mItem.getContent());
 		}
 
-		Context ctx = this.getActivity().getBaseContext();
-//		// init example series data
-//		GraphViewSeries exampleSeries = new GraphViewSeries(new GraphViewData[] {
-//		    new GraphViewData(1, 2.0d)
-//		    , new GraphViewData(2, 1.5d)
-//		    , new GraphViewData(3, 2.5d)
-//		    , new GraphViewData(4, 1.0d)
-//		});
-//		 
+		retrieveAnswers(mItem.getId());
 
+
+		
+		return mRootView;
+	}
+
+	private void retrieveAnswers(Long id) {
+	
+		String whereClause = "questionId = "+id;
+		BackendlessDataQuery dataQuery = new BackendlessDataQuery();
+		dataQuery.setWhereClause( whereClause );
+		
+		Backendless.Persistence.of( AnswerQuestion.class ).find( dataQuery, 
+                new AsyncCallback<BackendlessCollection<AnswerQuestion>>(){
+
+					@Override
+					public void handleFault(BackendlessFault fault) {					
+						Toast.makeText(getActivity(), R.string.toast_err_retrieving_data, Toast.LENGTH_LONG).show();
+						
+					}
+
+					@Override
+					public void handleResponse(	BackendlessCollection<AnswerQuestion> response) {
+						
+						updatedAnswers(response.getData());					
+						
+					}} );
+		
+		
+	}
+
+	protected void updatedAnswers(List<AnswerQuestion> data) {
+
+		Context ctx = this.getActivity().getBaseContext();
 		
 		GraphViewSeriesStyle seriesStyle = new GraphViewSeriesStyle();
 		seriesStyle.setValueDependentColor(new ValueDependentColor() {
@@ -88,51 +128,77 @@ public class QuestionDetailFragment extends Fragment {
 		    return Color.rgb((int)(150+((data.getY()/3)*100)), (int)(150-((data.getY()/3)*150)), (int)(150-((data.getY()/3)*150)));
 		  }
 		});
-		GraphViewSeries exampleSeries2 = new GraphViewSeries("Respuestas", seriesStyle, new GraphViewData[] {
-		      new GraphViewData(1, 10)
-		    , new GraphViewData(2, 20)
-		    , new GraphViewData(3, 15) 
-		      // another frequency
 		
-		});
+		GraphViewData[] viewData = createViewData(data);
+		
+		GraphViewSeries dataSeries = new GraphViewSeries("Estadisticas", seriesStyle,viewData);
 		
 		GraphView graphView = new BarGraphView(
 			    ctx // context
-			    , "Pregunta "+mItem.id // heading
+			    , mItem.getContent() // heading
 			);
 		
-		graphView.setCustomLabelFormatter(new CustomLabelFormatter() {
-			  @Override
-			  public String formatLabel(double value, boolean isValueX) {
-			    if (isValueX) {
-			     
-			    	if (value == 1) {
-			          return "Sí";
-			        }
-			    	
-			    	if (value == 2) {
-				       return "No";
-				    }
-			    	
-			    	if (value == 3) {
-					   return "Ausente";
-					}
-			    
-			      
-			      
-			      
-			    }
-			    return null; // let graphview generate Y-axis label for us
-			  }
-			});
+		graphView.setHorizontalLabels(new String[] {"Sí", "No", "Blanco"});
+//		graphView.setVerticalLabels(new String[] {"Votos"});
+		
+//		graphView.setCustomLabelFormatter(new CustomLabelFormatter() {
+//			  @Override
+//			  public String formatLabel(double value, boolean isValueX) {
+//			    if (isValueX) {
+//			     
+//			    	if (value <= 1) {
+//			            return "Sí";
+//			        }
+//			    	
+//			    	if (value <= 2 ) {
+//				       return "No";
+//				    }
+//			    	
+//			    	if (value <= 3  ) {
+//					   return "B";
+//					}
+//			   		      
+//			      
+//			    }
+//			    return "Votos"; // let graphview generate Y-axis label for us
+//			  }
+//			});
 		
 		    
 	
 		
-			graphView.addSeries(exampleSeries2); // data
-			LinearLayout panelGraphics = (LinearLayout) rootView.findViewById(R.id.pnl_graphics);
+			graphView.addSeries(dataSeries); // data
+			LinearLayout panelGraphics = (LinearLayout) mRootView.findViewById(R.id.pnl_graphics);
 			panelGraphics.addView(graphView);
 		
-		return rootView;
+	}
+
+	private GraphViewData[] createViewData(List<AnswerQuestion> data) {
+		
+		GraphViewData[] viewData = new GraphViewData[data.size()];
+		int[] grupos = new int[4];
+		
+		for(AnswerQuestion answer : data){
+			
+			  if("Sí".equalsIgnoreCase(answer.getAnswer())){
+				  grupos[0] = answer.getPoints()+ grupos[0]; 
+			  }
+			  
+			  if("No".equalsIgnoreCase(answer.getAnswer())){
+				  grupos[1] = answer.getPoints()+ grupos[1]; 
+			  }
+			 
+			  if("En Blanco".equalsIgnoreCase(answer.getAnswer())){
+				  grupos[2] = answer.getPoints()+ grupos[2]; 
+			  }
+			
+		}
+		
+		return new GraphViewData[] {
+			      new GraphViewData(1, grupos[0])
+			    , new GraphViewData(2, grupos[1])
+			    , new GraphViewData(3, grupos[2]) };
+			      // another frequency
+		
 	}
 }

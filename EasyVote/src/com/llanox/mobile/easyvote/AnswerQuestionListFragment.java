@@ -1,13 +1,22 @@
 package com.llanox.mobile.easyvote;
 
+import java.util.List;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.app.ListFragment;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
-import com.llanox.mobile.easyvote.dummy.DummyContent;
+import com.backendless.Backendless;
+import com.backendless.BackendlessCollection;
+import com.backendless.async.callback.AsyncCallback;
+import com.backendless.exceptions.BackendlessFault;
+import com.llanox.mobile.easyvote.data.DataLayerManager;
+import com.llanox.mobile.easyvote.data.QuestionData;
+import com.llanox.mobile.easyvote.model.Question;
 
 /**
  * A list fragment representing a list of AnswerQuestions. This fragment also
@@ -36,6 +45,9 @@ public class AnswerQuestionListFragment extends ListFragment {
 	 * The current activated item position. Only used on tablets.
 	 */
 	private int mActivatedPosition = ListView.INVALID_POSITION;
+	
+	
+	private List<Question> questions;
 
 	/**
 	 * A callback interface that all activities containing this fragment must
@@ -70,10 +82,32 @@ public class AnswerQuestionListFragment extends ListFragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		// TODO: replace with a real list adapter.
-		setListAdapter(new ArrayAdapter<DummyContent.DummyItem>(getActivity(),
-				android.R.layout.simple_list_item_activated_1,
-				android.R.id.text1, DummyContent.ITEMS));
+//		QuestionData data = (QuestionData) DataLayerManager.getInstance(getActivity()).getDataSession(QuestionData.class);
+//	    questions = data.findAll();	    
+//		setListAdapter(new ArrayAdapter<Question>(getActivity(),android.R.layout.simple_list_item_activated_1,android.R.id.text1, questions));
+		
+		updateAsync();
+		
+	
+		
+	}
+
+	private void updateAsync() {
+	
+		Backendless.Persistence.of( Question.class).find( new AsyncCallback<BackendlessCollection<Question>>(){
+			 @Override
+			 public void handleResponse( BackendlessCollection<Question> data )
+			 {
+				    questions = data.getData();	    
+					setListAdapter(new ArrayAdapter<Question>(getActivity(),android.R.layout.simple_list_item_activated_1,android.R.id.text1, questions));
+			 }
+			 @Override
+			 public void handleFault( BackendlessFault fault )
+			 {
+			   Toast.makeText(getActivity(),R.string.toast_err_retrieving_data, Toast.LENGTH_LONG).show();
+			 }
+		});
+		
 	}
 
 	@Override
@@ -116,7 +150,7 @@ public class AnswerQuestionListFragment extends ListFragment {
 
 		// Notify the active callbacks interface (the activity, if the
 		// fragment is attached to one) that an item has been selected.
-		mCallbacks.onItemSelected(DummyContent.ITEMS.get(position).id);
+		mCallbacks.onItemSelected(questions.get(position).getId()+"");
 	}
 
 	@Override

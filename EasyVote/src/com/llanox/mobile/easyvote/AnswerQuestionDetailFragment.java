@@ -1,13 +1,34 @@
 package com.llanox.mobile.easyvote;
 
-import android.os.Bundle;
+import java.util.Date;
+
+import android.app.Activity;
 import android.app.Fragment;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.llanox.mobile.easyvote.dummy.DummyContent;
+import com.backendless.Backendless;
+import com.backendless.BackendlessCollection;
+import com.backendless.async.callback.AsyncCallback;
+import com.backendless.async.callback.BackendlessCallback;
+import com.backendless.exceptions.BackendlessFault;
+import com.backendless.persistence.BackendlessDataQuery;
+import com.llanox.mobile.easyvote.data.DataLayerManager;
+import com.llanox.mobile.easyvote.data.QuestionData;
+import com.llanox.mobile.easyvote.model.AnswerQuestion;
+import com.llanox.mobile.easyvote.model.Question;
+import com.llanox.mobile.easyvote.model.User;
 
 /**
  * A fragment representing a single AnswerQuestion detail screen. This fragment
@@ -20,12 +41,13 @@ public class AnswerQuestionDetailFragment extends Fragment {
 	 * represents.
 	 */
 	public static final String ARG_ITEM_ID = "item_id";
-
-	/**
-	 * The dummy content this fragment is presenting.
-	 */
-	private DummyContent.DummyItem mItem;
-
+	public static final String TAG = AnswerQuestionDetailFragment.class.getSimpleName();
+	
+	private Question mItem;
+	private Spinner spAnswer;
+	private Button btnSendAnswer;
+	private View mRootView;
+	
 	/**
 	 * Mandatory empty constructor for the fragment manager to instantiate the
 	 * fragment (e.g. upon screen orientation changes).
@@ -37,26 +59,183 @@ public class AnswerQuestionDetailFragment extends Fragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		if (getArguments().containsKey(ARG_ITEM_ID)) {
-			// Load the dummy content specified by the fragment
-			// arguments. In a real-world scenario, use a Loader
-			// to load content from a content provider.
-			mItem = DummyContent.ITEM_MAP.get(getArguments().getString(
-					ARG_ITEM_ID));
-		}
 	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View rootView = inflater.inflate(
-				R.layout.fragment_answerquestion_detail, container, false);
+	
+		mRootView = inflater.inflate(R.layout.fragment_answerquestion_detail, container, false);
 
-		// Show the dummy content as text in a TextView.
-				if (mItem != null) {
-					((TextView) rootView.findViewById(R.id.question_title)).setText(mItem.content);
-				}
+		Context ctx = this.getActivity().getBaseContext();
+		String idItem = getArguments().getString(ARG_ITEM_ID);
+//		QuestionData data = (QuestionData) DataLayerManager.getInstance(ctx)
+//				.getDataSession(QuestionData.class);
+//		mItem = data.findQuestionById(idItem);
+		
+		validateQuestionStatus(idItem);
+	
+		btnSendAnswer = (Button) mRootView.findViewById(R.id.btn_send_answer);	
+		spAnswer = (Spinner) mRootView.findViewById(R.id.spn_answers);
 
-		return rootView;
+		
+		
+		btnSendAnswer.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+			  sendAnswer();
+
+			}
+		});
+
+		return mRootView;
 	}
+
+	private void validateQuestionStatus(String idItem) {
+
+		User user = getCurrentUserSession();
+		
+		
+		String whereClause = "id like '"+idItem+"'";
+		BackendlessDataQuery dataQuery = new BackendlessDataQuery();
+		dataQuery.setWhereClause( whereClause );
+		
+		Backendless.Persistence.of( Question.class ).find( dataQuery, 
+                new AsyncCallback<BackendlessCollection<Question>>(){
+
+					@Override
+					public void handleFault(BackendlessFault fault) {
+					
+						Toast.makeText(AnswerQuestionDetailFragment.this.getActivity(),R.string.toast_err_retrieving_data, Toast.LENGTH_LONG).show();
+						
+					}
+
+					@Override
+					public void handleResponse(	BackendlessCollection<Question> response) {
+						
+						if(response.getData()!= null && response.getData().size()>0){
+						   foundQuestion(response.getData().get(0));					
+						}
+		  }} );
+		
+		
+		
+	   			
+
+		
+		
+	
+		
+	
+     
+		
+	}
+
+	protected void foundQuestion(Question question) {
+		
+		
+		
+		
+		   mItem = question;
+			if (mItem != null) {
+				((TextView) mRootView.findViewById(R.id.question_title))
+						.setText(mItem.getContent());
+			}
+			
+			User user = getCurrentUserSession();
+		 	String  whereClause = "questionId like '"+question.getId()+"' and voter like '"+user.getUsername()+"'";
+				
+		 	BackendlessDataQuery	dataQuery = new BackendlessDataQuery();
+		    dataQuery.setWhereClause( whereClause );
+				
+				Backendless.Persistence.of( AnswerQuestion.class ).find( dataQuery, 
+		                new AsyncCallback<BackendlessCollection<AnswerQuestion>>(){
+
+							@Override
+							public void handleFault(BackendlessFault fault) {
+							
+								Toast.makeText(AnswerQuestionDetailFragment.this.getActivity(),R.string.toast_err_retrieving_data, Toast.LENGTH_LONG).show();
+								
+							}
+
+							@Override
+							public void handleResponse(	BackendlessCollection<AnswerQuestion> response) {
+								
+								if(response.getData()!= null && response.getData().size()>0){
+								 
+								   foundAnswerQuestion(response.getData().get(0));					
+								}
+				  }} );	
+		
+	}
+
+	protected void foundAnswerQuestion(AnswerQuestion answerQuestion) {
+		
+		btnSendAnswer.setEnabled(false);
+		
+		if (mItem != null) {
+			((TextView) mRootView.findViewById(R.id.question_title))
+					.setText(mItem.getContent() );
+		}
+		
+		String answer = answerQuestion.getAnswer();
+		
+		int count = spAnswer.getAdapter().getCount();
+		
+		for(int i =0; i<= count;i++){
+			
+			String iAnswer = spAnswer.getAdapter().getItem(i).toString();
+			if(iAnswer.equalsIgnoreCase(answer)){
+				spAnswer.setSelection(i,true);
+				break;
+			}
+			
+		}
+		
+		
+		
+		
+	}
+
+	protected void sendAnswer() {
+		
+		
+		String answer = spAnswer.getSelectedItem().toString();
+
+		AnswerQuestion answerQuestion = new AnswerQuestion();
+        User user = getCurrentUserSession();
+        
+		answerQuestion.setVoter(user.getUsername());
+		answerQuestion.setAnswerDate(new Date());
+		answerQuestion.setQuestionId(mItem.getId() + "");
+		answerQuestion.setAnswer(answer);
+		answerQuestion.setPoints(user.getWeight());
+	
+		
+		Backendless.Persistence.save(answerQuestion,
+				new BackendlessCallback<AnswerQuestion>() {
+					@Override
+					public void handleResponse(	AnswerQuestion answerQuestion) {
+						Log.i("", "Question answered by "+ answerQuestion.getVoter());
+						Toast.makeText(AnswerQuestionDetailFragment.this.getActivity(), R.string.toast_msg_answered_question, Toast.LENGTH_LONG).show();
+						Intent intent = new Intent(AnswerQuestionDetailFragment.this.getActivity(),AnswerQuestionListActivity.class);
+						
+						AnswerQuestionDetailFragment.this.getActivity().startActivity(intent);
+						AnswerQuestionDetailFragment.this.getActivity().finish();
+						
+						
+					}
+				});
+		
+	}
+
+	private User getCurrentUserSession() {
+		SharedPreferences pref = this.getActivity().getSharedPreferences(ConstantsEasyVote.SHARED_PREF_NAME, Activity.MODE_MULTI_PROCESS);
+		User user = new User();
+		user.setUsername(pref.getString(ConstantsEasyVote.USER_SESSION, null));
+		user.setWeight(pref.getInt(ConstantsEasyVote.USER_WEIGHT, 0));
+		return user;
+	}
+
 }

@@ -2,7 +2,8 @@
       xmlns:yourapp="http://schemas.android.com/apk/res-auto" >
     <!-- Search, should appear as action button -->
     <item android:id="@+id/action_new"
-          android:icon="@android:drawable/ic_input_add"
-          android:title="new"
+          android:icon="@android:drawable/ic_menu_add"
+          android:title="@string/title_ask_new_question"
+          android:showAsAction="ifRoom"
      />
 </menu>

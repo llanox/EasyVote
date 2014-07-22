@@ -4,29 +4,48 @@ import java.util.Date;
 
 public class Question {
 	
-    private String description;
-	private Date creationDate;
-	private Date expirationDate;
+	private Long id;
+	private String creator;
+    private String content;
+	private Date creationDate;	
+	public boolean active;
 	
 	
-	
-	public String getDescription() {
-		return description;
-	}
-	public void setDescription(String description) {
-		this.description = description;
-	}
 	public Date getCreationDate() {
 		return creationDate;
 	}
 	public void setCreationDate(Date creationDate) {
 		this.creationDate = creationDate;
 	}
-	public Date getExpirationDate() {
-		return expirationDate;
+
+
+	public Long getId() {
+		return id;
 	}
-	public void setExpirationDate(Date expirationDate) {
-		this.expirationDate = expirationDate;
+	public void setId(Long id) {
+		this.id = id;
+	}
+	public String getCreator() {
+		return creator;
+	}
+	public void setCreator(String creator) {
+		this.creator = creator;
+	}
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
+	}
+	
+	public String toString(){		
+		return creationDate+" "+content;
+	}
+	public boolean isActive() {
+		return active;
+	}
+	public void setActive(boolean active) {
+		this.active = active;
 	}
 
 }

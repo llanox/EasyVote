@@ -60,7 +60,7 @@ public class AnswerQuestionDetailActivity extends Activity {
 			//
 			// http://developer.android.com/design/patterns/navigation.html#up-vs-back
 			//
-			navigateUpTo(new Intent(this, AnswerQuestionListActivity.class));
+//			navigateUpTo(new Intent(this, AnswerQuestionListActivity.class));
 			return true;
 		}
 		return super.onOptionsItemSelected(item);

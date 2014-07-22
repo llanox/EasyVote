@@ -1,12 +1,13 @@
 package com.llanox.mobile.easyvote;
 
+
+import android.app.Activity;
+import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.app.Activity;
-import android.app.Fragment;
 
 /**
  * An activity representing a list of Questions. This activity has different
@@ -33,6 +34,10 @@ public class QuestionListActivity extends Activity implements
 	 */
 	private boolean mTwoPane;
 	private String role;
+	
+
+	
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -61,8 +66,13 @@ public class QuestionListActivity extends Activity implements
 					R.id.question_list)).setActivateOnItemClick(true);
 		}
 
-		// TODO: If exposing deep links into your app, handle intents here.
+		
+	
+		
+		
 	}
+	
+
 
 	/**
 	 * Callback method from {@link QuestionListFragment.Callbacks} indicating
@@ -82,19 +92,12 @@ public class QuestionListActivity extends Activity implements
 			Fragment fragment = null;
 			int idFragment = 0;
 			
-			if("voter".equalsIgnoreCase(role)){
-				fragment = new QuestionDetailFragment();
-				idFragment = R.id.question_detail_container;
-			}
-			
-			if("moderator".equalsIgnoreCase(role)){
-				fragment = new AnswerQuestionDetailFragment();
-				idFragment = R.id.answer_question_detail_container;
-			}
-			
+		
+			fragment = new QuestionDetailFragment();
+			idFragment = R.id.question_detail_container;
+						
 			fragment.setArguments(arguments);
-			getFragmentManager().beginTransaction()
-					.replace(idFragment, fragment).commit();
+			getFragmentManager().beginTransaction().replace(idFragment, fragment).commit();
 
 		} else {
 			// In single-pane mode, simply start the detail activity
@@ -143,5 +146,6 @@ public class QuestionListActivity extends Activity implements
 		Intent detailIntent = null;
 		detailIntent = new Intent(this, AskQuestion.class);
 		startActivity(detailIntent);
+		this.finish();
 	}
 }

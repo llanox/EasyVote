@@ -18,7 +18,7 @@
         android:padding="16dp"
         android:textIsSelectable="true" />
     
-    <LinearLayout android:id="@+id/pnl_graphics"
+    <LinearLayout android:id="@+id/ll_answer_question"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
        android:background="#000000"
@@ -26,13 +26,13 @@
          ></LinearLayout>
 
     <Spinner
-        android:id="@+id/spinner1"
+        android:id="@+id/spn_answers"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:entries="@array/answer_options" />
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/btn_send_answer"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

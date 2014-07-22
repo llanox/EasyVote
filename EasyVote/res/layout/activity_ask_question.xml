@@ -1,7 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     tools:context="${relativePackage}.${activityClass}" >
 
@@ -18,9 +18,9 @@
         android:id="@+id/et_question"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:hint="@string/hint_msg_ask_question"
         android:layout_margin="8dp"
-        android:layout_weight="1"
-        android:inputType="textMultiLine" >
+        android:inputType="textMultiLine|textShortMessage" >
 
         <requestFocus />
     </EditText>
