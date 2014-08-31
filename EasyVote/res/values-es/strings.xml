@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Toast Msgs -->
+    <string name="toast_msg_requeried_text">Tiene que ingresar algun texto.</string>
+    <string name="toast_msg_saved_question">Pregunta almacenada</string>
+    <string name="toast_msg_answered_question">Pregunta respondida</string>
+    <string name="toast_msg_user_auth">Autenticando usuario </string>
+    
+    
+    
+    <string name="toast_err_retrieving_data">Error al traer información del servidor</string>
+    <string name="toast_err_user_auth">Error autenticando usuario </string> 
+       
+       
+     <string name="hint_msg_ask_question">Coloque aquí la pregunta que se quiere hacer</string>
+    
+    <string name="app_name">EasyVote</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="lb_usuario">Usuario</string>
+    <string name="lb_password">Contraseña</string>
+    <string name="lb_login">Ingresar</string>
+    <string name="title_activity_ask_question">AskQuestion</string>
+    <string name="lb_question">Pregunta</string>
+    <string name="lb_ask_question">Preguntar</string>
+    <string name="title_ask_new_question">Nueva Pregunta</string>
+    
+    <string name="title_question_list">Questions</string>
+    <string name="title_question_detail">Question Description</string>
+    <string name="title_answer_question_detail">Answer Question</string>
+    <string name="title_answerquestion_list">AnswerQuestions</string>
+    <string name="title_answerquestion_detail">AnswerQuestion Detail</string>
+    
+
+
+    <string-array name="answer_options">
+        <item>Sí</item>
+        <item>No</item>
+        <item>En Blanco</item>
+    </string-array>
+        <string name="lb_answer_question">Enviar Respuesta</string>
+
+</resources>

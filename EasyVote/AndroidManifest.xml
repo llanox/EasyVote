@@ -7,18 +7,16 @@
     <uses-sdk
         android:minSdkVersion="15"
         android:targetSdkVersion="19" />
-    
-    
-<uses-permission android:name="android.permission.INTERNET" />
-<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-  <uses-permission
-        android:required="true"
-        android:name="android.permission.ACCESS_WIFI_STATE"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission
-        android:required="true"
-        android:name="android.permission.CHANGE_WIFI_STATE"/>
- 
-    
+        android:name="android.permission.ACCESS_WIFI_STATE"
+        android:required="true" />
+    <uses-permission
+        android:name="android.permission.CHANGE_WIFI_STATE"
+        android:required="true" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -27,54 +25,66 @@
         <activity
             android:name=".LoginActivity"
             android:label="@string/app_name" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+       
         </activity>
         <activity
             android:name=".AskQuestion"
             android:label="@string/title_activity_ask_question" >
         </activity>
-        
         <activity
             android:name=".QuestionListActivity"
             android:label="@string/title_question_list" >
         </activity>
-        
         <activity
             android:name=".QuestionDetailActivity"
-            android:label="@string/title_question_detail">
+            android:label="@string/title_question_detail" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.llanox.mobile.easyvote.QuestionListActivity" />
         </activity>
-        
-<!--             <activity -->
-<!--             android:name=".AnswerQuestionDetailActivity" -->
-<!--             android:label="@string/title_answer_question_detail" -->
-<!--             android:parentActivityName=".QuestionListActivity" > -->
-<!--             <meta-data -->
-<!--                 android:name="android.support.PARENT_ACTIVITY" -->
-<!--                 android:value="com.llanox.mobile.easyvote.QuestionListActivity" /> -->
-<!--         </activity> -->
-        
-            
-        <activity android:name="com.llanox.mobile.easyvote.AnswerQuestionListActivity"
-            android:label="@string/title_answerquestion_list"
-            >
-        </activity>
 
-        <activity android:name="com.llanox.mobile.easyvote.AnswerQuestionDetailActivity"
-            android:label="@string/title_answerquestion_detail"
-            >
-            <meta-data android:name="android.support.PARENT_ACTIVITY"
+     
+
+        <activity
+            android:name=".AnswerQuestionListActivity"
+            android:label="@string/title_answerquestion_list" >
+        </activity>
+        <activity
+            android:name=".AnswerQuestionDetailActivity"
+            android:label="@string/title_answerquestion_detail" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.llanox.mobile.easyvote.AnswerQuestionListActivity" />
         </activity>
-        
-         <service android:name="com.backendless.AndroidService" />
-            
+
+        <service android:name="com.backendless.AndroidService" />
+
+        <activity
+            android:name=".EntryPointActivity"
+            android:label="@string/title_activity_entry_point"
+            android:windowSoftInputMode="adjustResize|stateHidden" >
+             <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
     </application>
+
+    <!--
+     To retrieve OAuth 2.0 tokens or invalidate tokens to disconnect a user. This disconnect
+     option is required to comply with the Google+ Sign-In developer policies
+    -->
+    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+
+    <!-- To retrieve the account name (email) as part of sign-in: -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+
+    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
 
 </manifest>
