@@ -45,12 +45,7 @@ import com.google.android.gms.common.SignInButton;
 public class EntryPointActivity extends PlusBaseActivity implements
 		LoaderCallbacks<Cursor> {
 
-	/**
-	 * A dummy authentication store containing known user names and passwords.
-	 * TODO: remove after connecting to a real authentication system.
-	 */
-	private static final String[] DUMMY_CREDENTIALS = new String[] {
-			"foo@example.com:hello", "bar@example.com:world" };
+
 	/**
 	 * Keep track of the login task to ensure we can cancel it if requested.
 	 */
@@ -243,6 +238,8 @@ public class EntryPointActivity extends PlusBaseActivity implements
 				revokeAccess();
 			}
 		});
+		
+		startApp();
 	}
 
 	@Override
@@ -265,6 +262,8 @@ public class EntryPointActivity extends PlusBaseActivity implements
 		// TODO: Access to the user's G+ account has been revoked. Per the
 		// developer terms, delete
 		// any stored user data here.
+		
+		
 	}
 
 	@Override
@@ -352,22 +351,6 @@ public class EntryPointActivity extends PlusBaseActivity implements
 		@Override
 		protected Boolean doInBackground(Void... params) {
 			// TODO: attempt authentication against a network service.
-
-			try {
-				// Simulate network access.
-				Thread.sleep(2000);
-			} catch (InterruptedException e) {
-				return false;
-			}
-
-			for (String credential : DUMMY_CREDENTIALS) {
-				String[] pieces = credential.split(":");
-				if (pieces[0].equals(mEmail)) {
-					// Account exists, return true if the password matches.
-					return pieces[1].equals(mPassword);
-				}
-			}
-
 			// TODO: register the new account here.
 			return true;
 		}
@@ -378,15 +361,7 @@ public class EntryPointActivity extends PlusBaseActivity implements
 			showProgress(false);
 
 			if (success) {
-				Intent intent = new Intent(EntryPointActivity.this,QuestionListActivity.class);
-				Bundle data = new Bundle();			
-				data.putCharSequence(ConstantsEasyVote.ROLE_KEY, "moderator");
-				
-			
-				
-				intent.putExtras(data);
-				EntryPointActivity.this.startActivity(intent);			
-				EntryPointActivity.this.finish();
+				startApp();
 			} else {
 				mPasswordView
 						.setError(getString(R.string.error_incorrect_password));
@@ -405,8 +380,19 @@ public class EntryPointActivity extends PlusBaseActivity implements
 	public void onConnectionSuspended(int cause) {
 	
 		if(CAUSE_NETWORK_LOST == cause){
-			Toast.makeText(this, "", Toast.LENGTH_LONG).show();		
+			Toast.makeText(this, "", Toast.LENGTH_LONG).show();
+			return;
 		}
 		
+		Toast.makeText(this, "Connection Suspended", Toast.LENGTH_LONG).show();	
+		
+	}
+
+	private void startApp() {
+		Intent intent = new Intent(EntryPointActivity.this,QuestionListActivity.class);
+		Bundle data = new Bundle();			
+		intent.putExtras(data);
+		EntryPointActivity.this.startActivity(intent);			
+		EntryPointActivity.this.finish();
 	}
 }
