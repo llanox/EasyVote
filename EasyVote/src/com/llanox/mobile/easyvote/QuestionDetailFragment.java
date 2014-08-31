@@ -19,17 +19,14 @@ import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
 import com.backendless.persistence.BackendlessDataQuery;
 import com.jjoe64.graphview.BarGraphView;
-import com.jjoe64.graphview.CustomLabelFormatter;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.GraphView.GraphViewData;
 import com.jjoe64.graphview.GraphViewDataInterface;
 import com.jjoe64.graphview.GraphViewSeries;
 import com.jjoe64.graphview.GraphViewSeries.GraphViewSeriesStyle;
-import com.jjoe64.graphview.LineGraphView;
 import com.jjoe64.graphview.ValueDependentColor;
 import com.llanox.mobile.easyvote.data.DataLayerManager;
 import com.llanox.mobile.easyvote.data.QuestionData;
-import com.llanox.mobile.easyvote.dummy.DummyContent;
 import com.llanox.mobile.easyvote.model.AnswerQuestion;
 import com.llanox.mobile.easyvote.model.Question;
 
@@ -82,10 +79,10 @@ public class QuestionDetailFragment extends Fragment {
 		if (mItem != null) {			
 			
 			((TextView) mRootView.findViewById(R.id.question_detail)).setText(mItem.getContent());
+			retrieveAnswers(mItem.getId());
 		}
 
-		retrieveAnswers(mItem.getId());
-
+	
 
 		
 		return mRootView;

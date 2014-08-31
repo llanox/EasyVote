@@ -42,8 +42,7 @@ public class QuestionDetailActivity extends Activity {
 					.getStringExtra(QuestionDetailFragment.ARG_ITEM_ID));
 			QuestionDetailFragment fragment = new QuestionDetailFragment();
 			fragment.setArguments(arguments);
-			getFragmentManager().beginTransaction()
-					.add(R.id.question_detail_container, fragment).commit();
+			getFragmentManager().beginTransaction().add(R.id.question_detail_container, fragment).commit();
 		}
 	}
 

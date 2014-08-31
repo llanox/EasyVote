@@ -104,17 +104,7 @@ public class QuestionListActivity extends Activity implements
 			// for the selected item ID.
 			
 			Intent detailIntent = null;
-			
-			
-			
-			if("voter".equalsIgnoreCase(role)){
-				detailIntent = new Intent(this, AnswerQuestionDetailActivity.class);
-			}
-			
-			if("moderator".equalsIgnoreCase(role)){
-				detailIntent = new Intent(this, QuestionDetailActivity.class);
-			}
-			
+			detailIntent = new Intent(this, QuestionDetailActivity.class);			
 			detailIntent.putExtra(QuestionDetailFragment.ARG_ITEM_ID, id);
 			detailIntent.putExtra("role",role);
 			startActivity(detailIntent);

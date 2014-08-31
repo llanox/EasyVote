@@ -5,16 +5,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import co.com.abakosoluciones.mobile.util.DateTimeUtils;
-
-import com.llanox.mobile.easyvote.model.Question;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
-import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
+
+import com.llanox.mobile.easyvote.data.util.DateTimeUtils;
+import com.llanox.mobile.easyvote.model.Question;
 
 public class QuestionData extends DataAccess implements DataSession {
 	

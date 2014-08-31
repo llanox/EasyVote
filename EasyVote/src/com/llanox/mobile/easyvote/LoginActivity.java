@@ -27,7 +27,7 @@ public class LoginActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
 		
-		Backendless.initApp( this, ConstantsEasyVote.APPLICATION_KEY, ConstantsEasyVote.SECRET_KEY, ConstantsEasyVote.APP_VERSION );
+		Backendless.initApp( this, AppCredentials.APPLICATION_KEY, AppCredentials.SECRET_KEY, AppCredentials.APP_VERSION );
 		
 
 		
