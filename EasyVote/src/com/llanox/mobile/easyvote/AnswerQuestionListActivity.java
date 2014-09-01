@@ -1,8 +1,8 @@
 package com.llanox.mobile.easyvote;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.app.Activity;
 
 /**
  * An activity representing a list of AnswerQuestions. This activity has

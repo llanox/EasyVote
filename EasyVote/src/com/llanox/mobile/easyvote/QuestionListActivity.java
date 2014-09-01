@@ -1,6 +1,9 @@
 package com.llanox.mobile.easyvote;
 
 
+import com.llanox.mobile.easyvote.data.UserData;
+import com.llanox.mobile.easyvote.model.User;
+
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
@@ -43,16 +46,13 @@ public class QuestionListActivity extends Activity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_question_list);
+        
+	
+		
 
-		Intent intent = this.getIntent();
 		
-		if(intent!=null){
-			Bundle extras = intent.getExtras();
-			if(extras!=null){
-				role = extras.getString("role");
-			}
-		}
 		
+	
 		if (findViewById(R.id.question_detail_container) != null) {
 			// The detail container view will be present only in the
 			// large-screen layouts (res/values-large and
@@ -86,7 +86,7 @@ public class QuestionListActivity extends Activity implements
 			// fragment transaction.
 			Bundle arguments = new Bundle();
 			arguments.putString(QuestionDetailFragment.ARG_ITEM_ID, id);
-			arguments.putString("role", role);
+		
 			
 			
 			Fragment fragment = null;
@@ -106,7 +106,7 @@ public class QuestionListActivity extends Activity implements
 			Intent detailIntent = null;
 			detailIntent = new Intent(this, QuestionDetailActivity.class);			
 			detailIntent.putExtra(QuestionDetailFragment.ARG_ITEM_ID, id);
-			detailIntent.putExtra("role",role);
+
 			startActivity(detailIntent);
 		}
 	}

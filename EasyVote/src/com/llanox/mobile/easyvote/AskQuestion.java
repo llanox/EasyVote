@@ -2,23 +2,20 @@ package com.llanox.mobile.easyvote;
 
 import java.util.Date;
 
-import com.backendless.Backendless;
-import com.backendless.async.callback.BackendlessCallback;
-import com.llanox.mobile.easyvote.data.DataLayerManager;
-import com.llanox.mobile.easyvote.data.QuestionData;
-import com.llanox.mobile.easyvote.model.Question;
-
 import android.app.Activity;
 import android.content.Intent;
-import android.net.NetworkInfo.DetailedState;
 import android.os.Bundle;
-import android.renderscript.ProgramVertexFixedFunction.Constants;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.backendless.Backendless;
+import com.backendless.async.callback.BackendlessCallback;
+import com.llanox.mobile.easyvote.data.DataLayerManager;
+import com.llanox.mobile.easyvote.data.DataSession;
+import com.llanox.mobile.easyvote.data.QuestionData;
+import com.llanox.mobile.easyvote.model.Question;
 
 public class AskQuestion extends Activity {
 
@@ -48,23 +45,12 @@ public class AskQuestion extends Activity {
 		}
 		
 		Question oQuestion = new Question();
-		oQuestion.setCreator("moderator");
-		oQuestion.setCreationDate(new Date());
+		oQuestion.setCreator(null);
 		oQuestion.setContent(question);
 		
-		QuestionData data = (QuestionData) DataLayerManager.getInstance(this).getDataSession(QuestionData.class);
+		DataSession<Question> data = new QuestionData(this);
 		data.insert(oQuestion);
-		
-
-		Backendless.Persistence.save( oQuestion, new BackendlessCallback<Question>()
-	    {
-			      @Override
-			      public void handleResponse( Question oQuestion )
-			      {
-			        Log.i(TAG,"Question created by " + oQuestion.getCreator() );
-			      }
-	     } );
-		
+	
 		Toast.makeText(this, R.string.toast_msg_saved_question, Toast.LENGTH_LONG).show();
 		Intent intent = new Intent(this,QuestionListActivity.class);
 		this.startActivity(intent);

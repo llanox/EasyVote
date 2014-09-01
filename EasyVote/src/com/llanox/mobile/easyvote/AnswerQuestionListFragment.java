@@ -3,8 +3,8 @@ package com.llanox.mobile.easyvote;
 import java.util.List;
 
 import android.app.Activity;
-import android.os.Bundle;
 import android.app.ListFragment;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -14,8 +14,6 @@ import com.backendless.Backendless;
 import com.backendless.BackendlessCollection;
 import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
-import com.llanox.mobile.easyvote.data.DataLayerManager;
-import com.llanox.mobile.easyvote.data.QuestionData;
 import com.llanox.mobile.easyvote.model.Question;
 
 /**
@@ -150,7 +148,7 @@ public class AnswerQuestionListFragment extends ListFragment {
 
 		// Notify the active callbacks interface (the activity, if the
 		// fragment is attached to one) that an item has been selected.
-		mCallbacks.onItemSelected(questions.get(position).getId()+"");
+		mCallbacks.onItemSelected(questions.get(position).getObjectId()+"");
 	}
 
 	@Override

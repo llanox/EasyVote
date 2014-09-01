@@ -1,10 +1,13 @@
 package com.llanox.mobile.easyvote;
 
+import java.util.List;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -12,6 +15,10 @@ import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
 import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
 import com.google.android.gms.plus.Plus;
 import com.google.android.gms.plus.PlusClient;
+import com.google.android.gms.plus.model.people.Person;
+import com.llanox.mobile.easyvote.data.DataSession.ResponseHandler;
+import com.llanox.mobile.easyvote.data.UserData;
+import com.llanox.mobile.easyvote.model.User;
 
 /**
  * A base class to wrap communication with the Google Play Services PlusClient.
@@ -22,6 +29,10 @@ public abstract class PlusBaseActivity extends Activity implements
 ConnectionCallbacks, OnConnectionFailedListener
 		
 		{
+
+	
+
+	public static final String SESSION_SETTINGS_PREF = "session_settings_pref";
 
 	private static final String TAG = PlusBaseActivity.class.getSimpleName();
 
@@ -248,7 +259,40 @@ ConnectionCallbacks, OnConnectionFailedListener
 	public void onConnected(Bundle connectionHint) {
 		updateConnectButtonState();
 		setProgressBarVisible(false);
+		saveSession();
 		onPlusClientSignIn();
+		
+	}
+
+	private void saveSession() {
+		Person person = Plus.PeopleApi.getCurrentPerson(mPlusClient);
+		String email = Plus.AccountApi.getAccountName(mPlusClient)!=null? Plus.AccountApi.getAccountName(mPlusClient):"Without email";
+		String id = person.getId();
+		String nickName = person.hasNickname()? person.getNickname():"Without Nickname";
+		String fullname = person.hasDisplayName()? person.getDisplayName():"Without Display Name";
+		
+		AppSessionManager.saveUserSession(this,id,
+				nickName,
+			    fullname,	
+			    email				    	
+				);
+		
+		User user = new User(id,nickName,null,fullname,email,User.GOOGLE_PLUS_USER_ROLE);
+		UserData data = new UserData(this);
+		data.asyncInsert(user, new ResponseHandler<User>() {
+			
+			@Override
+			public void succesfull(User item) {
+				Toast.makeText(PlusBaseActivity.this, "User saved succesfully", Toast.LENGTH_LONG).show();				
+			}
+			
+			@Override
+			public void error(Object error) {
+				Toast.makeText(PlusBaseActivity.this, "Error "+error, Toast.LENGTH_LONG).show();	
+				
+			}
+		});
+		
 	}
 
 	/**
@@ -257,6 +301,12 @@ ConnectionCallbacks, OnConnectionFailedListener
 	public void onDisconnected() {
 		updateConnectButtonState();
 		onPlusClientSignOut();
+		removeSession();
+	}
+
+	private void removeSession() {
+	
+		AppSessionManager.removeUserSession(this);
 	}
 
 	/**

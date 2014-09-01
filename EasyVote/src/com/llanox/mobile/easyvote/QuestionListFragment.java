@@ -14,8 +14,6 @@ import com.backendless.Backendless;
 import com.backendless.BackendlessCollection;
 import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
-import com.llanox.mobile.easyvote.data.DataLayerManager;
-import com.llanox.mobile.easyvote.data.QuestionData;
 import com.llanox.mobile.easyvote.model.Question;
 
 /**
@@ -39,7 +37,7 @@ public class QuestionListFragment extends ListFragment {
 	 * The fragment's current callback object, which is notified of list item
 	 * clicks.
 	 */
-	private Callbacks mCallbacks = sDummyCallbacks;
+	private Callbacks mCallbacks = mCallBack;
 
 	/**
 	 * The current activated item position. Only used on tablets.
@@ -65,7 +63,7 @@ public class QuestionListFragment extends ListFragment {
 	 * A dummy implementation of the {@link Callbacks} interface that does
 	 * nothing. Used only when this fragment is not attached to an activity.
 	 */
-	private static Callbacks sDummyCallbacks = new Callbacks() {
+	private static Callbacks mCallBack = new Callbacks() {
 		@Override
 		public void onItemSelected(String id) {
 		}
@@ -138,7 +136,7 @@ public class QuestionListFragment extends ListFragment {
 		super.onDetach();
 
 		// Reset the active callbacks interface to the dummy implementation.
-		mCallbacks = sDummyCallbacks;
+		mCallbacks = mCallBack;
 	}
 
 	@Override
@@ -147,7 +145,7 @@ public class QuestionListFragment extends ListFragment {
 
 		// Notify the active callbacks interface (the activity, if the
 		// fragment is attached to one) that an item has been selected.
-		mCallbacks.onItemSelected(questions.get(position).getId()+"");
+		mCallbacks.onItemSelected(questions.get(position).getObjectId()+"");
 	}
 
 	@Override

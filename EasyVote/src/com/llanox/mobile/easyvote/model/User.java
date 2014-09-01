@@ -1,19 +1,35 @@
 package com.llanox.mobile.easyvote.model;
 
 public class User {
+	public static final String GOOGLE_PLUS_USER_ROLE = "GooglePlusUser";
 	
-	private Long id;
+	
+	
+	private String id;
 	private String username;
 	private String password;
-	private int weight;
-	private String role;
+	private String fullName;
+	private String email;	
+	private String role;	
+	private String objectId;
 	
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
+	
+
+	public User(String id, String username, String password, String fullName,
+			String email, String role) {
+		super();
 		this.id = id;
+		this.username = username;
+		this.password = password;
+		this.fullName = fullName;
+		this.email = email;
+		this.role = role;
 	}
+	
+	public User() {
+		
+	}
+
 	public String getUsername() {
 		return username;
 	}
@@ -26,17 +42,38 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public int getWeight() {
-		return weight;
-	}
-	public void setWeight(int weight) {
-		this.weight = weight;
-	}
+
 	public String getRole() {
 		return role;
 	}
 	public void setRole(String role) {
 		this.role = role;
+	}
+	public String getFullName() {
+		return fullName;
+	}
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getObjectId() {
+		return objectId;
+	}
+
+	public void setObjectId(String objectId) {
+		this.objectId = objectId;
 	}
 	
 	

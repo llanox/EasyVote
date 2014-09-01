@@ -1,12 +1,8 @@
 package com.llanox.mobile.easyvote;
 
-import java.util.Date;
-
-import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -24,8 +20,6 @@ import com.backendless.async.callback.AsyncCallback;
 import com.backendless.async.callback.BackendlessCallback;
 import com.backendless.exceptions.BackendlessFault;
 import com.backendless.persistence.BackendlessDataQuery;
-import com.llanox.mobile.easyvote.data.DataLayerManager;
-import com.llanox.mobile.easyvote.data.QuestionData;
 import com.llanox.mobile.easyvote.model.AnswerQuestion;
 import com.llanox.mobile.easyvote.model.Question;
 import com.llanox.mobile.easyvote.model.User;
@@ -69,9 +63,6 @@ public class AnswerQuestionDetailFragment extends Fragment {
 
 		Context ctx = this.getActivity().getBaseContext();
 		String idItem = getArguments().getString(ARG_ITEM_ID);
-//		QuestionData data = (QuestionData) DataLayerManager.getInstance(ctx)
-//				.getDataSession(QuestionData.class);
-//		mItem = data.findQuestionById(idItem);
 		
 		validateQuestionStatus(idItem);
 	
@@ -144,7 +135,7 @@ public class AnswerQuestionDetailFragment extends Fragment {
 			}
 			
 			User user = getCurrentUserSession();
-		 	String  whereClause = "questionId like '"+question.getId()+"' and voter like '"+user.getUsername()+"'";
+		 	String  whereClause = "questionId like '"+question.getObjectId()+"' and voter like '"+user.getUsername()+"'";
 				
 		 	BackendlessDataQuery	dataQuery = new BackendlessDataQuery();
 		    dataQuery.setWhereClause( whereClause );
@@ -206,11 +197,9 @@ public class AnswerQuestionDetailFragment extends Fragment {
 		AnswerQuestion answerQuestion = new AnswerQuestion();
         User user = getCurrentUserSession();
         
-		answerQuestion.setVoter(user.getUsername());
-		answerQuestion.setAnswerDate(new Date());
-		answerQuestion.setQuestionId(mItem.getId() + "");
+		answerQuestion.setVoter(user);
 		answerQuestion.setAnswer(answer);
-		answerQuestion.setPoints(user.getWeight());
+		
 	
 		
 		Backendless.Persistence.save(answerQuestion,
@@ -231,10 +220,10 @@ public class AnswerQuestionDetailFragment extends Fragment {
 	}
 
 	private User getCurrentUserSession() {
-		SharedPreferences pref = this.getActivity().getSharedPreferences(ConstantsEasyVote.SHARED_PREF_NAME, Activity.MODE_MULTI_PROCESS);
+		
 		User user = new User();
-		user.setUsername(pref.getString(ConstantsEasyVote.USER_SESSION, null));
-		user.setWeight(pref.getInt(ConstantsEasyVote.USER_WEIGHT, 0));
+		user.setId(AppSessionManager.getUserID(this.getActivity()));
+	
 		return user;
 	}
 

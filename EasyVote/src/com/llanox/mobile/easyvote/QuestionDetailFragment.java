@@ -26,6 +26,7 @@ import com.jjoe64.graphview.GraphViewSeries;
 import com.jjoe64.graphview.GraphViewSeries.GraphViewSeriesStyle;
 import com.jjoe64.graphview.ValueDependentColor;
 import com.llanox.mobile.easyvote.data.DataLayerManager;
+import com.llanox.mobile.easyvote.data.DataSession;
 import com.llanox.mobile.easyvote.data.QuestionData;
 import com.llanox.mobile.easyvote.model.AnswerQuestion;
 import com.llanox.mobile.easyvote.model.Question;
@@ -73,13 +74,13 @@ public class QuestionDetailFragment extends Fragment {
 		
 		
 		String idItem = getArguments().getString(ARG_ITEM_ID);
-		QuestionData data = (QuestionData) DataLayerManager.getInstance(this.getActivity()).getDataSession(QuestionData.class);
-		mItem = data.findQuestionById(idItem);
+		DataSession<Question> data = new QuestionData(getActivity());
+		mItem = data.findById(idItem);
 		
 		if (mItem != null) {			
 			
 			((TextView) mRootView.findViewById(R.id.question_detail)).setText(mItem.getContent());
-			retrieveAnswers(mItem.getId());
+			retrieveAnswers(mItem.getObjectId());
 		}
 
 	
@@ -88,7 +89,7 @@ public class QuestionDetailFragment extends Fragment {
 		return mRootView;
 	}
 
-	private void retrieveAnswers(Long id) {
+	private void retrieveAnswers(String id) {
 	
 		String whereClause = "questionId = "+id;
 		BackendlessDataQuery dataQuery = new BackendlessDataQuery();
@@ -136,30 +137,7 @@ public class QuestionDetailFragment extends Fragment {
 			);
 		
 		graphView.setHorizontalLabels(new String[] {"Sí", "No", "Blanco"});
-//		graphView.setVerticalLabels(new String[] {"Votos"});
-		
-//		graphView.setCustomLabelFormatter(new CustomLabelFormatter() {
-//			  @Override
-//			  public String formatLabel(double value, boolean isValueX) {
-//			    if (isValueX) {
-//			     
-//			    	if (value <= 1) {
-//			            return "Sí";
-//			        }
-//			    	
-//			    	if (value <= 2 ) {
-//				       return "No";
-//				    }
-//			    	
-//			    	if (value <= 3  ) {
-//					   return "B";
-//					}
-//			   		      
-//			      
-//			    }
-//			    return "Votos"; // let graphview generate Y-axis label for us
-//			  }
-//			});
+
 		
 		    
 	
