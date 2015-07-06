@@ -21,3 +21,8 @@ public class AppCredentials {
 
 }
 ```
+* Task TODO
+- [x] Change to be able to use Android Studio 
+- [ ] Fix Google + Sign up
+
+
