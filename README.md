@@ -5,9 +5,9 @@ Colaborative Android app to take decisions using a voting system.
 
 * Setting Up Project.
 
-You need to create into com.llanox.mobile.easyvote.util package the following Constant class that will contains backend settings for the application.
+You need to create AppCredentials class into com.llanox.mobile.easyvote.util package that Constants class will contain backendless connection settings for this application.
 
-
+```
 package com.llanox.mobile.easyvote.util;
 
 public class AppCredentials {
@@ -20,3 +20,4 @@ public class AppCredentials {
     public static final String APP_VERSION = "vX";
 
 }
+```
