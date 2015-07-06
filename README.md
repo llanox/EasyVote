@@ -1,7 +1,7 @@
 EasyVote
 ========
 
-Colaborative Android app to take decisions using a voting system.
+Colaborative Android app to take decisions using a voting system. This app use a Mobile Backend as a service(MBaaS) https://backendless.com/. It was coded to be able to add support for another MBaaS like https://parse.com/
 
 # Setting Up Project.
 
