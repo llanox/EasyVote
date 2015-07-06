@@ -41,6 +41,7 @@ public class AppCredentials {
 - [ ] Use Travis CI to test, build and deploy that app.
 - [ ] Notify changes in the poll of questions with Push Notifications.
 - [ ] Create Wiki to document how to use the app.
+- [ ] Add some unit tests.
  
 
 
