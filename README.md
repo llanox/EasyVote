@@ -38,6 +38,7 @@ public class AppCredentials {
 - [x] Change app icon.
 - [ ] Create  application Theme according with the new icon colors.
 - [ ] Add internalization to the app. Translate app messages into Spanish(ES-CO) and Portugues(PT-BR) lenguages.
+- [ ] Use Travis CI to test, build and deploy that app.
  
 
 
