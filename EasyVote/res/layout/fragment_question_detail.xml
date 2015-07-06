@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:padding="16dp"
     android:textIsSelectable="true"
-    tools:context="com.llanox.mobile.easyvote.QuestionDetailFragment" >
+    tools:context="com.llanox.mobile.easyvote.fragments.QuestionDetailFragment" >
 
     <TextView
         android:id="@+id/question_detail"

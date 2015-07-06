@@ -8,7 +8,7 @@
     android:divider="?android:attr/dividerHorizontal"
     android:orientation="horizontal"
     android:showDividers="middle"
-    tools:context="com.llanox.mobile.easyvote.QuestionListActivity" >
+    tools:context="com.llanox.mobile.easyvote.activities.QuestionListActivity" >
 
     <!--
     This layout is a two-pane layout for the Questions
@@ -23,7 +23,7 @@
 
     <fragment
         android:id="@+id/question_list"
-        android:name="com.llanox.mobile.easyvote.QuestionListFragment"
+        android:name="com.llanox.mobile.easyvote.fragments.QuestionListFragment"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"

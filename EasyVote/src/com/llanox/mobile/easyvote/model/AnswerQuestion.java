@@ -5,8 +5,8 @@ import java.util.Date;
 public class AnswerQuestion {
 
 	private String objectId;
-	private User voter;
-	private Question question;
+	private UserModel voter;
+	private QuestionModel question;
 	private String questionKey;
 	private String comment;
 	private String answer;
@@ -49,11 +49,11 @@ public class AnswerQuestion {
 		this.questionKey = questionKey;
 	}
 
-	public User getVoter() {
+	public UserModel getVoter() {
 		return voter;
 	}
 
-	public void setVoter(User voter) {
+	public void setVoter(UserModel voter) {
 		this.voter = voter;
 	}
 
@@ -73,11 +73,11 @@ public class AnswerQuestion {
 		this.updated = updated;
 	}
 
-	public Question getQuestion() {
+	public QuestionModel getQuestion() {
 		return question;
 	}
 
-	public void setQuestion(Question question) {
+	public void setQuestion(QuestionModel question) {
 		this.question = question;
 	}
 

@@ -1,9 +1,9 @@
 <fragment xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/answerquestion_list"
-    android:name="com.llanox.mobile.easyvote.AnswerQuestionListFragment"
+    android:name="com.llanox.mobile.easyvote.fragments.AnswerQuestionListFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    tools:context="com.llanox.mobile.easyvote.AnswerQuestionListActivity"
+    tools:context="com.llanox.mobile.easyvote.activities.AnswerQuestionListActivity"
     tools:layout="@android:layout/list_content" />

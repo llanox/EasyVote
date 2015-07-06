@@ -12,11 +12,15 @@ apply plugin: 'android'
 
 dependencies {
     compile fileTree(dir: 'libs', include: '*.jar')
-    provided 'com.google.android.gms:play-services:6.5.87'
+    compile 'com.google.android.gms:play-services-identity:7.5.0'
+    compile 'com.google.android.gms:play-services-plus:7.5.0'
+    compile 'com.google.android.gms:play-services-base:7.5.0'
+    compile project(':z-validations-library')
+
 }
 
 android {
-    compileSdkVersion 15
+    compileSdkVersion 19
     buildToolsVersion "20.0.0"
 
     sourceSets {

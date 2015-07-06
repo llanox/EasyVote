@@ -17,58 +17,6 @@
         android:name="android.permission.CHANGE_WIFI_STATE"
         android:required="true" />
 
-    <application
-        android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
-        <activity
-            android:name=".AskQuestion"
-            android:label="@string/title_activity_ask_question" >
-        </activity>
-        <activity
-            android:name=".QuestionListActivity"
-            android:label="@string/title_question_list" >
-        </activity>
-        <activity
-            android:name=".QuestionDetailActivity"
-            android:label="@string/title_question_detail" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.llanox.mobile.easyvote.QuestionListActivity" />
-        </activity>
-
-     
-
-        <activity
-            android:name=".AnswerQuestionListActivity"
-            android:label="@string/title_answerquestion_list" >
-        </activity>
-        <activity
-            android:name=".AnswerQuestionDetailActivity"
-            android:label="@string/title_answerquestion_detail" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.llanox.mobile.easyvote.AnswerQuestionListActivity" />
-        </activity>
-
-        <service android:name="com.backendless.AndroidService" />
-
-        <activity
-            android:name=".EntryPointActivity"
-            android:label="@string/title_activity_entry_point"
-            android:windowSoftInputMode="adjustResize|stateHidden" >
-             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
-        <meta-data
-            android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />
-    </application>
-
     <!--
      To retrieve OAuth 2.0 tokens or invalidate tokens to disconnect a user. This disconnect
      option is required to comply with the Google+ Sign-In developer policies
@@ -81,5 +29,68 @@
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
+
+    <android:uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="18" />
+    <android:uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <android:uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="18" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name=".activities.AskQuestionActivity"
+            android:label="@string/title_activity_ask_question" >
+        </activity>
+        <activity
+            android:name=".activities.QuestionListActivity"
+            android:label="@string/title_question_list" >
+        </activity>
+        <activity
+            android:name=".activities.QuestionDetailActivity"
+            android:label="@string/title_question_detail" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.QuestionListActivity" />
+        </activity>
+        <activity
+            android:name=".activities.AnswerQuestionListActivity"
+            android:label="@string/title_answerquestion_list" >
+        </activity>
+        <activity
+            android:name=".activities.AnswerQuestionDetailActivity"
+            android:label="@string/title_answerquestion_detail" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.AnswerQuestionListActivity" />
+        </activity>
+
+        <service android:name="com.backendless.AndroidService" />
+
+        <activity
+            android:name=".activities.EntryPointActivity"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustResize|stateHidden" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <activity
+            android:name=".activities.RegisterActivity"
+            android:label="@string/title_activity_register" >
+        </activity>
+    </application>
 
 </manifest>

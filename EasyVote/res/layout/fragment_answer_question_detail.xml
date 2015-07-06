@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:textIsSelectable="true"
-    tools:context="com.llanox.mobile.easyvote.AnswerQuestionDetailFragment" >
+    tools:context="com.llanox.mobile.easyvote.fragments.AnswerQuestionDetailFragment" >
 
     <TextView
         android:id="@+id/question_description"

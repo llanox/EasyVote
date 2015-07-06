@@ -1,42 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Toast Msgs -->
-    <string name="toast_msg_requeried_text">Tiene que ingresar algun texto.</string>
-    <string name="toast_msg_saved_question">Pregunta almacenada</string>
-    <string name="toast_msg_answered_question">Pregunta respondida</string>
-    <string name="toast_msg_user_auth">Autenticando usuario </string>
+    <string name="toast_msg_requeried_text">You must enter valid text here.</string>
+    <string name="toast_msg_saved_question">Stored question</string>
+    <string name="toast_msg_answered_question">Answered question</string>
+    <string name="toast_msg_user_auth">Authenticating user</string>
     
     
     
-    <string name="toast_err_retrieving_data">Error al traer información del servidor</string>
-    <string name="toast_err_user_auth">Error autenticando usuario </string> 
+    <string name="toast_err_retrieving_data">Error retrieving information from server</string>
+    <string name="toast_err_user_auth">Error authenticating user </string>
        
        
-     <string name="hint_msg_ask_question">Coloque aquí la pregunta que se quiere hacer</string>
+     <string name="hint_msg_ask_question">Put here the question you want to ask</string>
     
     <string name="app_name">EasyVote</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="lb_usuario">Usuario</string>
-    <string name="lb_password">Contraseña</string>
-    <string name="lb_login">Ingresar</string>
-    <string name="title_activity_ask_question">AskQuestion</string>
-    <string name="lb_question">Pregunta</string>
-    <string name="lb_ask_question">Preguntar</string>
-    <string name="title_ask_new_question">Nueva Pregunta</string>
+
+
+   <!-- Login Page-->
+    <string name="lb_email">Email</string>
+    <string name="lb_register">Register</string>
+    <string name="lb_password">Password</string>
+    <string name="lb_login">Log In</string>
+
+    <!-- Register Page-->
+    <string name="lb_confirm_password">Confirm password</string>
+    <string name="lb_confirm_email">Confirm email</string>
+    <string name="lb_choose_a_password">Choose a password</string>
+    <string name="lb_register_page_title">Create your EasyVote account</string>
+    <string name="btn_register">Register</string>
+
+
+
+
+    <string name="title_activity_ask_question">Ask a Question</string>
+    <string name="lb_question">Question</string>
+    <string name="lb_ask_question">Asking question</string>
+    <string name="title_ask_new_question">New question</string>
     
     <string name="title_question_list">Questions</string>
     <string name="title_question_detail">Question Description</string>
     <string name="title_answer_question_detail">Answer Question</string>
-    <string name="title_answerquestion_list">AnswerQuestions</string>
-    <string name="title_answerquestion_detail">AnswerQuestion Detail</string>
+    <string name="title_answerquestion_list">Answers </string>
+    <string name="title_answerquestion_detail">Answers Detail</string>
     
 
 
     <string-array name="answer_options">
-        <item>Sí</item>
+        <item>Yes</item>
         <item>No</item>
-        <item>En Blanco</item>
+        <item>Blank</item>
     </string-array>
-        <string name="lb_answer_question">Enviar Respuesta</string>
+        <string name="lb_answer_question">Send answer</string>
+    <string name="title_activity_register">RegisterActivity</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
 
 </resources>

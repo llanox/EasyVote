@@ -3,5 +3,5 @@
     android:id="@+id/answerquestion_detail_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.llanox.mobile.easyvote.AnswerQuestionDetailActivity"
+    tools:context="com.llanox.mobile.easyvote.activities.AnswerQuestionDetailActivity"
     tools:ignore="MergeRootFrame" />

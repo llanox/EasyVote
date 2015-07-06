@@ -3,7 +3,7 @@
     android:id="@+id/question_detail_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.llanox.mobile.easyvote.QuestionDetailActivity"
+    tools:context="com.llanox.mobile.easyvote.activities.QuestionDetailActivity"
     tools:ignore="MergeRootFrame" >
 
 </FrameLayout>
