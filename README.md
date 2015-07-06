@@ -35,7 +35,8 @@ public class AppCredentials {
 - [ ] Remove jar libraries from /lib folder and use gradle.
 - [ ] Show statistic charts about answered questions.
 - [ ] Create a poll of questions code to share with other users.
-- [ ] Change app icon
+- [x] Change app icon.
+- [ ] Create  application Theme according with the new icon colors.
 - [ ] Add internalization to the app. Translate app messages into Spanish(ES-CO) and Portugues(PT-BR) lenguages.
  
 
