@@ -26,7 +26,7 @@ public class AppCredentials {
 - [ ] Fix Google + Sign up
 - [x] Adding form field validation library
 - [ ] Remove jar libraries from /lib folder and use gradle
-- 
+ 
 
 
 
