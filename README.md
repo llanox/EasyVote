@@ -29,8 +29,9 @@ public class AppCredentials {
 # Task TODO
 - [x] Changes to be able to use Android Studio 
 - [ ] Fix Google + Sign up
-- [x] Adding form field validation library
+- [x] Add  form field validation library
 - [ ] Remove jar libraries from /lib folder and use gradle
+- [ ] Show statistic charts about answered questions
  
 
 
