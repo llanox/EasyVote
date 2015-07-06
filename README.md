@@ -29,7 +29,7 @@ public class AppCredentials {
 }
 ```
 # TODO tasks
-- [x] Changes to be able to use Android Studio.
+- [x] Migrate app from Eclipse to Android Studio project structure.
 - [ ] Fix issue with Google + Sign up .
 - [x] Add  form field validation library.
 - [ ] Remove jar libraries from /lib folder and use gradle.
