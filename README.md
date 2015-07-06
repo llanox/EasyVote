@@ -39,7 +39,8 @@ public class AppCredentials {
 - [ ] Create  application Theme according with the new icon colors.
 - [ ] Add internalization to the app. Translate app messages into Spanish(ES-CO) and Portugues(PT-BR) lenguages.
 - [ ] Use Travis CI to test, build and deploy that app.
-- [ ] Notify changes in the poll of questions with Push Notifications 
+- [ ] Notify changes in the poll of questions with Push Notifications.
+- [ ] Create Wiki to document how to use the app.
  
 
 
