@@ -3,7 +3,7 @@ EasyVote
 
 Colaborative Android app to take decisions using a voting system.
 
-* Setting Up Project.
+# Setting Up Project.
 
 You need to create AppCredentials class into com.llanox.mobile.easyvote.util package that Constants class will contain backendless connection settings for this application.
 
@@ -21,7 +21,7 @@ public class AppCredentials {
 
 }
 ```
-* Task TODO
+# Task TODO
 - [x] Change to be able to use Android Studio 
 - [ ] Fix Google + Sign up
 
