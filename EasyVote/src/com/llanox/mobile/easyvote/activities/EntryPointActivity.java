@@ -264,6 +264,10 @@ public class EntryPointActivity extends PlusBaseActivity  {
         mForm.addField(Field.using(email).validate((NotEmpty.build(this))));
         mForm.addField(Field.using(password).validate((NotEmpty.build(this))));
 
+        if(!mForm.isValid()){
+            return;
+        }
+
 
         UserStore user = new UserStore(this);
 
@@ -279,7 +283,7 @@ public class EntryPointActivity extends PlusBaseActivity  {
             @Override
             public void error(Object error) {
 
-                Toast.makeText(EntryPointActivity.this,"Error:"+error,Toast.LENGTH_LONG).show();
+                Toast.makeText(EntryPointActivity.this,""+error,Toast.LENGTH_LONG).show();
 
             }
         });
