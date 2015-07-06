@@ -7,7 +7,7 @@ Colaborative Android app to take decisions using a voting system.
 
 You need to create AppCredentials class into com.llanox.mobile.easyvote.util package that Constants class will contain backendless connection settings for this application.
 
-```
+```java
 package com.llanox.mobile.easyvote.util;
 
 public class AppCredentials {
