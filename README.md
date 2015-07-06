@@ -1,6 +1,8 @@
 EasyVote
 ========
 
+![](https://github.com/llanox/EasyVote/blob/master/Resources/FeatureGraphic.png)
+
 Colaborative Android app to take decisions using a voting system. This app use a Mobile Backend as a service(MBaaS) https://backendless.com/. It was coded to be able to add support for another MBaaS like https://parse.com/
 
 <br><a href="https://play.google.com/store/apps/details?id=com.llanox.mobile.easyvote">
