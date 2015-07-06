@@ -3,6 +3,11 @@ EasyVote
 
 Colaborative Android app to take decisions using a voting system. This app use a Mobile Backend as a service(MBaaS) https://backendless.com/. It was coded to be able to add support for another MBaaS like https://parse.com/
 
+<br><a href="https://play.google.com/store/apps/details?id=com.llanox.mobile.easyvote">
+  <img alt="Get it on Google Play"
+       src="https://developer.android.com/images/brand/en_generic_rgb_wo_45.png" />
+</a>
+
 # Setting Up Project.
 
 You need to create AppCredentials class into com.llanox.mobile.easyvote.util package that Constants class will contain backendless connection settings for this application.
