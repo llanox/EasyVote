@@ -33,11 +33,11 @@ public class AppCredentials {
 - [ ] Fix issue with Google + Sign up .
 - [x] Add  form field validation library.
 - [ ] Remove jar libraries from /lib folder and use gradle.
-- [ ] Show statistic charts about answered questions.
+- [ ] Show statistical charts about answered questions.
 - [ ] Create a poll of questions code to share with other users.
 - [x] Change app icon.
 - [ ] Create  application Theme according with the new icon colors.
-- [ ] Add internalization to the app. Translate app messages into Spanish(ES-CO) and Portugues(PT-BR) lenguages.
+- [ ] Add internalization to the app. Translate app messages into Spanish(ES-CO) and Portugues(PT-BR) languages.
 - [ ] Use Travis CI to test, build and deploy that app.
 - [ ] Notify changes in the poll of questions with Push Notifications.
 - [ ] Create Wiki to document how to use the app.
